@@ -1,0 +1,22 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cert-manager-ovh-solver
+rules:
+- apiGroups: ["acme.yucelsan.fr"]
+  resources: ["ovh"]
+  verbs: ["*"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-manager-ovh-solver-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cert-manager-ovh-solver
+subjects:
+- kind: ServiceAccount
+  name: cert-manager
+  namespace: cert-manager

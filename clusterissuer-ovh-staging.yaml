@@ -1,0 +1,26 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-dns-ovh-staging
+spec:
+  acme:
+    email: contact@yucelsan.fr
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: ovh-lets-encrypt-staging-key
+    solvers:
+    - dns01:
+        webhook:
+          groupName: acme.yucelsan.fr
+          solverName: ovh
+          config:
+            endpoint: "ovh-eu"
+            applicationKeyRef:
+              name: ovh-api-credentials
+              key: applicationKey
+            applicationSecretRef:
+              name: ovh-api-credentials
+              key: applicationSecret
+            consumerKeyRef:
+              name: ovh-api-credentials
+              key: consumerKey
