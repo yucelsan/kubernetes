@@ -22,7 +22,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 echo "Copie du script en temps réel de dedibox vers scaleway"
 scp -i "$SSH_KEY_PATH" -r /root/op-scaleway/k8s/12-expose-dashboard-ingress.sh root@$SCW_IP:/opt/k8s/
 
-echo "🚀 Connexion SSH dans notre instance Scaleway..."
+echo "Connexion SSH dans notre instance Scaleway..."
 ssh -i "$SSH_KEY_PATH" root@$SCW_IP << 'EOF'
 
 cd /opt/k8s/
@@ -32,7 +32,7 @@ PROJECT_DIR="k8s"
 
 set -e  # Arrêter le script en cas d'erreur
 
-echo "🌐 Création de l'Ingress pour le Dashboard..."
+echo "Création de l'Ingress pour le Dashboard..."
 
 cat <<CAT_EOF | kubectl apply -f -
 apiVersion: networking.k8s.io/v1
@@ -64,9 +64,9 @@ spec:
 CAT_EOF
 
 echo ""
-echo "✅ Ingress créé pour https://kubernetes.yucelsan.fr"
-echo "🔐 Certificat Let's Encrypt (Staging) en cours de provisionnement..."
-echo "🧪 Vérifie avec : kubectl describe certificate -n kubernetes-dashboard"
+echo "Ingress créé pour https://kubernetes.yucelsan.fr"
+echo "Certificat Let's Encrypt (Staging) en cours de provisionnement..."
+echo "Vérifie avec : kubectl describe certificate -n kubernetes-dashboard"
 
 kubectl describe certificate -n kubernetes-dashboard
 

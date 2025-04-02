@@ -21,7 +21,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 echo "Copie du script en temps réel de dedibox vers scaleway"
 scp -i "$SSH_KEY_PATH" -r /root/op-scaleway/k8s/11-install-cert-manager.sh root@$SCW_IP:/opt/k8s/
 
-echo "🚀 Connexion SSH dans notre instance Scaleway..."
+echo "Connexion SSH dans notre instance Scaleway..."
 ssh -i "$SSH_KEY_PATH" root@$SCW_IP << 'EOF'
 
 cd /opt/k8s/
@@ -31,7 +31,7 @@ PROJECT_DIR="k8s"
 
 set -e  # Arrêter le script en cas d'erreur
 
-echo "📦 Installation de Cert-Manager..."
+echo "Installation de Cert-Manager..."
 
 # Créer le namespace dédié
 kubectl create namespace cert-manager || true
@@ -39,13 +39,13 @@ kubectl create namespace cert-manager || true
 # Appliquer le manifest officiel
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
 
-echo "⏳ Attente que Cert-Manager soit prêt..."
+echo "Attente que Cert-Manager soit prêt..."
 kubectl rollout status deployment cert-manager -n cert-manager
 kubectl rollout status deployment cert-manager-webhook -n cert-manager
 kubectl rollout status deployment cert-manager-cainjector -n cert-manager
 
 # Créer un ClusterIssuer (Let's Encrypt - STAGING pour test)
-echo "🛠️ Création du ClusterIssuer (Let's Encrypt Staging)..."
+echo "Création du ClusterIssuer (Let's Encrypt Staging)..."
 
 cat <<CAT_EOF | kubectl apply -f -
 apiVersion: cert-manager.io/v1
@@ -64,6 +64,6 @@ spec:
           class: nginx
 CAT_EOF
 
-echo "✅ Cert-Manager installé + ClusterIssuer Let's Encrypt (Staging) prêt."
-echo "➡️ Prochaine étape : créer l'Ingress HTTPS pour https://kubernetes.yucelsan.fr"
+echo "Cert-Manager installé + ClusterIssuer Let's Encrypt (Staging) prêt."
+echo "Prochaine étape : créer l'Ingress HTTPS pour https://kubernetes.yucelsan.fr"
 EOF

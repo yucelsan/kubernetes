@@ -22,7 +22,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 echo "Copie du script en temps réel de dedibox vers scaleway"
 scp -i "$SSH_KEY_PATH" -r /root/op-scaleway/k8s/5.1-install-kubectl-krew.sh root@$SCW_IP:/opt/k8s/
 
-echo "🚀 Connexion SSH dans notre instance Scaleway..."
+echo "Connexion SSH dans notre instance Scaleway..."
 ssh -i "$SSH_KEY_PATH" root@$SCW_IP << 'EOF'
 
 cd /opt/k8s/
@@ -32,7 +32,7 @@ PROJECT_DIR="k8s"
 
 set -e  # Arrêter le script en cas d'erreur
 
-echo "📦 Téléchargement de krew..."
+echo "Téléchargement de krew..."
 
 # Dépendances nécessaires
 sudo apt update
@@ -62,11 +62,11 @@ tar zxvf "${KREW}.tar.gz"
 echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> ~/.bashrc
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
-echo "✅ krew est installé !"
+echo "krew est installé !"
 
 # Tester avec un premier plugin sympa
 kubectl krew update
 kubectl krew install ctx
 
-echo "✅ Plugin 'ctx' installé. Teste avec : kubectl ctx"
+echo "Plugin 'ctx' installé. Teste avec : kubectl ctx"
 EOF

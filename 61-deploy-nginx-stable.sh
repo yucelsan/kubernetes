@@ -21,7 +21,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 echo "Copie du script en temps réel de dedibox vers scaleway"
 scp -i "$SSH_KEY_PATH" -r /root/op-scaleway/k8s/61-deploy-nginx-stable.sh root@$SCW_IP:/opt/k8s/
 
-echo "🚀 Connexion SSH dans notre instance Scaleway..."
+echo "Connexion SSH dans notre instance Scaleway..."
 ssh -i "$SSH_KEY_PATH" root@$SCW_IP << 'EOF'
 
 cd /opt/k8s/
@@ -34,16 +34,16 @@ set -e  # Arrêter le script en cas d'erreur
 APP_NAME="nginx-devops"
 NODE_PORT=30090
 
-echo "📦 Création du Deployment NGINX..."
+echo "Création du Deployment NGINX..."
 
 kubectl create deployment $APP_NAME --image=nginx
 
-echo "⏳ Attente que le pod soit prêt..."
+echo "Attente que le pod soit prêt..."
 kubectl rollout status deployment/$APP_NAME
 
 sleep 5
 
-echo "🌐 Création du Service NodePort (port externe : $NODE_PORT)..."
+echo "Création du Service NodePort (port externe : $NODE_PORT)..."
 
 kubectl expose deployment $APP_NAME \
   --type=NodePort \
@@ -62,15 +62,15 @@ kubectl expose deployment $APP_NAME \
   }
 }"
 
-echo "🔍 Récupération des informations..."
+echo "Récupération des informations..."
 
 CLUSTER_IP=$(kubectl get svc ${APP_NAME}-service -o=jsonpath='{.spec.clusterIP}')
 NODE_IP=$(curl -s ifconfig.me)
 
 echo ""
-echo "✅ NGINX est déployé avec succès !"
-echo "🌍 Accès externe : http://$NODE_IP:$NODE_PORT"
-echo "🔐 Accès interne ClusterIP : http://$CLUSTER_IP:80"
+echo "NGINX est déployé avec succès !"
+echo "Accès externe : http://$NODE_IP:$NODE_PORT"
+echo "Accès interne ClusterIP : http://$CLUSTER_IP:80"
 echo ""
 
 kubectl get pods -l app=$APP_NAME -o wide

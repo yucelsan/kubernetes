@@ -22,7 +22,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 echo "Copie du script en temps réel de dedibox vers scaleway"
 scp -i "$SSH_KEY_PATH" -r /root/op-scaleway/k8s/01-disable-swap.sh root@$SCW_IP:/opt/k8s/
 
-echo "🚀 Connexion SSH dans notre instance Scaleway..."
+echo "Connexion SSH dans notre instance Scaleway..."
 ssh -i "$SSH_KEY_PATH" root@$SCW_IP << 'EOF'
 
 cd /opt/k8s/
@@ -32,13 +32,13 @@ PROJECT_DIR="k8s"
 
 set -e  # Arrêter le script en cas d'erreur
 
-echo "🧼 [1/2] Désactivation temporaire du swap..."
+echo "Désactivation temporaire du swap..."
 sudo swapoff -a
 
-echo "🔧 [2/2] Commentaire de la ligne de swap dans /etc/fstab..."
+echo "Commentaire de la ligne de swap dans /etc/fstab..."
 # Ce sed commente toute ligne contenant " swap " pour éviter qu’il soit réactivé au redémarrage
 sudo sed -i.bak '/ swap / s/^/#/' /etc/fstab
 
-echo "✅ Le swap est maintenant désactivé (temporairement et au reboot)"
-echo "📄 Sauvegarde de /etc/fstab originale : /etc/fstab.bak"
+echo "Le swap est maintenant désactivé (temporairement et au reboot)"
+echo "Sauvegarde de /etc/fstab originale : /etc/fstab.bak"
 EOF

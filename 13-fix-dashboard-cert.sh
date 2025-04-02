@@ -22,7 +22,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 echo "Copie du script en temps réel de dedibox vers scaleway"
 scp -i "$SSH_KEY_PATH" -r /root/op-scaleway/k8s/13-fix-dashboard-cert.sh root@$SCW_IP:/opt/k8s/
 
-echo "🚀 Connexion SSH dans notre instance Scaleway..."
+echo "Connexion SSH dans notre instance Scaleway..."
 ssh -i "$SSH_KEY_PATH" root@$SCW_IP << 'EOF'
 
 cd /opt/k8s/
@@ -32,11 +32,11 @@ PROJECT_DIR="k8s"
 
 set -e  # Arrêter le script en cas d'erreur
 
-echo "🧼 Suppression du certificat et de l'ingress actuel..."
+echo "Suppression du certificat et de l'ingress actuel..."
 kubectl delete certificate kubernetes-dashboard-tls -n kubernetes-dashboard || true
 kubectl delete ingress kubernetes-dashboard-ingress -n kubernetes-dashboard || true
 
-echo "📦 Création d'un Ingress pour la validation HTTP-01 des challenges..."
+echo "Création d'un Ingress pour la validation HTTP-01 des challenges..."
 cat <<KUB_EOF | kubectl apply -f -
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -62,7 +62,7 @@ spec:
               number: 80
 KUB_EOF
 
-echo "🔧 Création d'un service fictif (dummy) pour Ingress challenge..."
+echo "Création d'un service fictif (dummy) pour Ingress challenge..."
 kubectl apply -f - <<CTL_EOF
 apiVersion: v1
 kind: Service
@@ -78,7 +78,7 @@ spec:
     targetPort: 80
 CTL_EOF
 
-echo "🛠️ Re-création de l'Ingress du Dashboard avec certificat..."
+echo "Re-création de l'Ingress du Dashboard avec certificat..."
 cat <<CAT_EOF | kubectl apply -f -
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -109,7 +109,7 @@ spec:
 CAT_EOF
 
 echo ""
-echo "✅ Challenge corrigé. Cert-Manager va maintenant pouvoir générer le certificat."
-echo "⏳ Tu peux suivre l’évolution avec :"
-echo "   kubectl describe certificate kubernetes-dashboard-tls -n kubernetes-dashboard"
+echo "Challenge corrigé. Cert-Manager va maintenant pouvoir générer le certificat."
+echo "Tu peux suivre l’évolution avec :"
+echo "kubectl describe certificate kubernetes-dashboard-tls -n kubernetes-dashboard"
 EOF

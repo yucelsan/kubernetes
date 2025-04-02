@@ -21,7 +21,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 echo "Copie du script en temps réel de dedibox vers scaleway"
 scp -i "$SSH_KEY_PATH" -r /root/op-scaleway/k8s/08-test-curl-nginx.sh root@$SCW_IP:/opt/k8s/
 
-echo "🚀 Connexion SSH dans notre instance Scaleway..."
+echo "Connexion SSH dans notre instance Scaleway..."
 ssh -i "$SSH_KEY_PATH" root@$SCW_IP << 'EOF'
 
 cd /opt/k8s/
@@ -36,8 +36,8 @@ NODE_PORT=30090                     # NodePort configuré dans le service nginx-
 
 URL="http://$NODE_IP:$NODE_PORT"
 
-echo "🌐 Test de connexion à $URL ..."
+echo "Test de connexion à $URL ..."
 curl -I "$URL"
 
-echo "✅ Test terminé."
+echo "Test terminé."
 EOF

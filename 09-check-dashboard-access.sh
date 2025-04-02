@@ -21,7 +21,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 echo "Copie du script en temps réel de dedibox vers scaleway"
 scp -i "$SSH_KEY_PATH" -r /root/op-scaleway/k8s/09-check-dashboard-access.sh root@$SCW_IP:/opt/k8s/
 
-echo "🚀 Connexion SSH dans notre instance Scaleway..."
+echo "Connexion SSH dans notre instance Scaleway..."
 ssh -i "$SSH_KEY_PATH" root@$SCW_IP << 'EOF'
 
 cd /opt/k8s/
@@ -33,8 +33,8 @@ set -e  # Arrêter le script en cas d'erreur
 
 DASHBOARD_URL="https://kubernetes.yucelsan.fr"
 
-echo "🌐 Vérification de l'accès au Kubernetes Dashboard..."
+echo "Vérification de l'accès au Kubernetes Dashboard..."
 curl -k -I "$DASHBOARD_URL"
 
-echo "✅ Vérification terminée."
+echo "Vérification terminée."
 EOF

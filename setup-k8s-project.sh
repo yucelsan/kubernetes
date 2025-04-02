@@ -19,7 +19,7 @@ source "$SCRIPT_DIR/.env"
 # Logger stdout + stderr
 exec > >(tee -a "$LOG_FILE") 2>&1
 
-echo "🚀 Connexion SSH dans notre instance Scaleway..."
+echo "Connexion SSH dans notre instance Scaleway..."
 ssh -i "$SSH_KEY_PATH" root@$SCW_IP << 'EOF'
 
 cd /opt/
@@ -28,7 +28,7 @@ cd /opt/
 PROJECT_DIR="k8s"
 
 # Créer les dossiers et fichiers
-echo "📁 Création de la structure du projet Kubernetes..."
+echo "Création de la structure du projet Kubernetes..."
 mkdir -p "$PROJECT_DIR"
 
 # Liste des scripts à créer (vides pour l’instant)
@@ -53,7 +53,7 @@ done
 
 # Création du README.md de base
 cat << 'EOF_MD' > "$PROJECT_DIR/README.md"
-# 📦 Kubernetes Remote Setup (via kubeadm)
+# Kubernetes Remote Setup (via kubeadm)
 
 Ce dossier contient les scripts shell pour installer un cluster Kubernetes 
 (mononœud) à distance sur un serveur (Scaleway par exemple), en plusieurs étapes.
@@ -69,7 +69,7 @@ Ce dossier contient les scripts shell pour installer un cluster Kubernetes
 7. **07-enable-pods-on-master.sh** – Permet de scheduler des pods sur le master
 8. **remote-k8s-setup.sh** – Script maître pour tout exécuter à distance via SSH
 
-## 🔧 Lancement
+## Lancement
 
 À exécuter depuis ta machine d’administration (ex: ta VM Dedibox) :
 

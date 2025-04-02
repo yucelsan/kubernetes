@@ -22,7 +22,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 echo "Copie du script en temps réel de dedibox vers scaleway"
 scp -i "$SSH_KEY_PATH" -r /root/op-scaleway/k8s/03-install-kubernetes.sh root@$SCW_IP:/opt/k8s/
 
-echo "🚀 Connexion SSH dans notre instance Scaleway..."
+echo "Connexion SSH dans notre instance Scaleway..."
 ssh -i "$SSH_KEY_PATH" root@$SCW_IP << 'EOF'
 
 cd /opt/k8s/
@@ -50,8 +50,8 @@ echo "Marquer comme hold pour éviter upgrade accidentel"
 sudo apt-mark hold kubelet kubeadm kubectl
 
 # Vérifications
-echo "✅ kubelet version: $(kubelet --version)"
-echo "✅ kubeadm version: $(kubeadm version -o short)"
-echo "✅ kubectl version:$(kubectl version)"
+echo "kubelet version: $(kubelet --version)"
+echo "kubeadm version: $(kubeadm version -o short)"
+echo "kubectl version:$(kubectl version)"
 
 EOF

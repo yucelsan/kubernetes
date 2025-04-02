@@ -22,7 +22,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 echo "Copie du script en temps réel de dedibox vers scaleway"
 scp -i "$SSH_KEY_PATH" -r /root/op-scaleway/k8s/06-deploy-nginx-test.sh root@$SCW_IP:/opt/k8s/
 
-echo "🚀 Connexion SSH dans notre instance Scaleway..."
+echo "Connexion SSH dans notre instance Scaleway..."
 ssh -i "$SSH_KEY_PATH" root@$SCW_IP << 'EOF'
 
 cd /opt/k8s/
@@ -32,7 +32,7 @@ PROJECT_DIR="k8s"
 
 set -e  # Arrêter le script en cas d'erreur
 
-echo "📦 Déploiement du pod NGINX..."
+echo "Déploiement du pod NGINX..."
 
 sleep 5
 
@@ -46,7 +46,7 @@ kubectl run nginx-test \
 sleep 5
 
 # Création du service NodePort
-echo "🌐 Création du service NodePort..."
+echo "Création du service NodePort..."
 
 kubectl expose pod nginx-test \
   --type=NodePort \
@@ -69,7 +69,7 @@ sleep 5
 
 # Récupération des informations de service
 
-echo "🔍 Récupération des infos de service..."
+echo "Récupération des infos de service..."
 
 NODE_PORT=$(kubectl get svc nginx-service -o=jsonpath='{.spec.ports[0].nodePort}')
 
@@ -78,9 +78,9 @@ NODE_IP=$(curl -s ifconfig.me)
 sleep 5
 
 echo ""
-echo "✅ NGINX est déployé et exposé !"
-echo "👉 Accède à ton pod via l’URL suivante :"
-echo "🌍 http://$NODE_IP:$NODE_PORT"
+echo "NGINX est déployé et exposé !"
+echo "Accède à ton pod via l’URL suivante :"
+echo "http://$NODE_IP:$NODE_PORT"
 echo ""
 
 # Affichage du statut du pod

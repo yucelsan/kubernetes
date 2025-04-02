@@ -22,7 +22,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 echo "Copie du script en temps réel de dedibox vers scaleway"
 scp -i "$SSH_KEY_PATH" -r /root/op-scaleway/k8s/02-install-containerd.sh root@$SCW_IP:/opt/k8s/
 
-echo "🚀 Connexion SSH dans notre instance Scaleway..."
+echo "Connexion SSH dans notre instance Scaleway..."
 ssh -i "$SSH_KEY_PATH" root@$SCW_IP << 'EOF'
 
 cd /opt/k8s/
@@ -32,7 +32,7 @@ PROJECT_DIR="k8s"
 
 set -e  # Arrêter le script en cas d'erreur
 
-echo "📦 Installation de containerd en cours..."
+echo "Installation de containerd en cours..."
 
 # Mettre à jour les paquets et installer les dépendances de base
 echo "Mise à jour des paquets et installation des dépendances de base"
@@ -75,5 +75,5 @@ echo "Redémarrage et activation containerd permanent"
 sudo systemctl restart containerd
 sudo systemctl enable containerd
 
-echo "✅ containerd est installé et configuré avec systemd comme driver cgroup."
+echo "containerd est installé et configuré avec systemd comme driver cgroup."
 EOF
